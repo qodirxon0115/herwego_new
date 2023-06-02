@@ -27,9 +27,9 @@ class _SplashPageState extends State<SplashPage> {
     });
   }
 
-  // _callNextPage(){
-  //   Navigator.pushReplacementNamed(context, SignUpPage.id);
-  // }
+  _callNextPage(){
+    Navigator.pushReplacementNamed(context, SignUpPage.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
         ),
         child: const Center(
-          child: Text("Bis", style: TextStyle(color: Colors.white,
+          child: Text("Bismillah", style: TextStyle(color: Colors.white,
               fontSize: 25, fontWeight: FontWeight.bold),),
         )
       ),
