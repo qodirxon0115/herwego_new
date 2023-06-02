@@ -47,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
         ),
         child: const Center(
-          child: Text("Bismillah", style: TextStyle(color: Colors.white,
+          child: Text("Bismillah!", style: TextStyle(color: Colors.white,
               fontSize: 25, fontWeight: FontWeight.bold),),
         )
       ),
