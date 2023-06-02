@@ -15,7 +15,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("SignUp", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),)
+        title: const Text("SignUp")
       ),
       body:Column(
           mainAxisAlignment: MainAxisAlignment.center,
