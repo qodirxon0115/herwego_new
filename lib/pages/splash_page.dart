@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:herewego/pages/signin_page.dart';
 import 'package:herewego/pages/signup_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -28,29 +29,29 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   _callNextPage(){
-    Navigator.pushReplacementNamed(context, SignUpPage.id);
+    Navigator.pushReplacementNamed(context, SignInPage.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromRGBO(193, 53, 132, 1),
-              Color.fromRGBO(131, 58, 180, 1),
-            ]
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromRGBO(193, 53, 132, 1),
+                Color.fromRGBO(131, 58, 180, 1),
+              ]
+            ),
           ),
+          child: const Center(
+            child: Text("Bismillah", style: TextStyle(color: Colors.white,
+                fontSize: 25, fontWeight: FontWeight.bold),),
+          )
         ),
-        child: const Center(
-          child: Text("Bismillah", style: TextStyle(color: Colors.white,
-              fontSize: 25, fontWeight: FontWeight.bold),),
-        )
-      ),
     );
   }
 }
