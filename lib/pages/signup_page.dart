@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
     String password = passController.text.toString().trim();
     String conPassword = conPassController.text.toString().trim();
 
-    if(fullName.isEmpty || email.isEmpty || password.isEmpty) return;
+    if(conPassword.isEmpty || email.isEmpty || password.isEmpty) return;
 
     Navigator.pushReplacementNamed(context, SignInPage.id);
   }

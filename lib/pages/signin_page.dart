@@ -1,6 +1,8 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:herewego/pages/home_page.dart';
+import 'package:herewego/pages/services/auth_service.dart';
 import 'package:herewego/pages/signup_page.dart';
 
 class SignInPage extends StatefulWidget {
@@ -22,7 +24,19 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void _doLogin(){
+    String email = emailController.text.toString().trim();
+    String password = passController.text.toString().trim();
+    if(email.isEmpty || password.isEmpty) return;
+
+    AuthService.signInUser(email, password).then((value) => {
+      responseSingIn(value!),
+    });
+
     Navigator.pushReplacementNamed(context, HomePage.id);
+  }
+
+  void responseSingIn(User firebaseUser){
+
   }
 
   @override

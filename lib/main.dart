@@ -1,11 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:herewego/pages/home_page.dart';
 import 'package:herewego/pages/signin_page.dart';
 import 'package:herewego/pages/signup_page.dart';
 import 'package:herewego/pages/splash_page.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+
+  await Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {
