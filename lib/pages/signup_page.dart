@@ -72,7 +72,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-
                         Container(
                           margin: const EdgeInsets.only(left: 20, right: 20),
                           padding: const EdgeInsets.only(left: 15, right: 15),
@@ -83,6 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           child: TextField(
                             controller: fullNameController,
+                            style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 hintText: "Full Name",
                                 hintStyle: TextStyle(color: Colors.grey[400]),
@@ -107,6 +107,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           child: TextField(
                             controller: emailController,
+                            style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 hintText: "Email",
                                 hintStyle: TextStyle(color: Colors.grey[400]),
@@ -130,6 +131,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           child: TextField(
                             controller: passController,
+                            style: const TextStyle(color: Colors.white),
+                            obscureText: true,
                             decoration: InputDecoration(
                                 hintText: "Password",
                                 hintStyle: TextStyle(color: Colors.grey[400]),
@@ -153,6 +156,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           child: TextField(
                             controller: conPassController,
+                            style: const TextStyle(color: Colors.white),
+                            obscureText: true,
                             decoration: InputDecoration(
                                 hintText: "Confirm Password",
                                 hintStyle: TextStyle(color: Colors.grey[400]),

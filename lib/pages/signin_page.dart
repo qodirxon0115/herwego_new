@@ -80,6 +80,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                           child: TextField(
                             controller: emailController,
+                            style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 hintText: "Email",
                                 hintStyle: TextStyle(color: Colors.grey[400]),
@@ -103,7 +104,9 @@ class _SignInPageState extends State<SignInPage> {
                               borderRadius: BorderRadius.circular(7)
                           ),
                           child: TextField(
+                            style: const TextStyle(color: Colors.white),
                             controller: passController,
+                            obscureText: true,
                             decoration: InputDecoration(
                                 hintText: "Password",
                                 hintStyle: TextStyle(color: Colors.grey[400]),
