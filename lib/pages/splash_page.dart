@@ -2,6 +2,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:herewego/pages/home_page.dart';
+import 'package:herewego/pages/services/auth_service.dart';
 import 'package:herewego/pages/signin_page.dart';
 import 'package:herewego/pages/signup_page.dart';
 
@@ -29,7 +31,11 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   _callNextPage(){
-    Navigator.pushReplacementNamed(context, SignInPage.id);
+    if(AuthService.isLoggedIn()){
+      Navigator.pushReplacementNamed(context, HomePage.id);
+    }else{
+      Navigator.pushReplacementNamed(context, SignInPage.id);
+    }
   }
 
   @override

@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:herewego/pages/services/auth_service.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = "home_page";
@@ -17,7 +18,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Firebase"),
       ),
-      body: Container(),
+      body: Center(
+        child: MaterialButton(
+          color: Colors.blueAccent,
+          onPressed: (){
+            AuthService.signOutUser(context);
+          },
+          child: const Text("Log Out"),
+        ),
+      ),
     );
   }
 }

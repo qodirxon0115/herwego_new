@@ -1,6 +1,9 @@
 
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:herewego/pages/home_page.dart';
+import 'package:herewego/pages/services/auth_service.dart';
 import 'package:herewego/pages/signin_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -12,6 +15,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  var isLoading = false;
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
   var passController = TextEditingController();
@@ -24,9 +28,23 @@ class _SignUpPageState extends State<SignUpPage> {
     String password = passController.text.toString().trim();
     String conPassword = conPassController.text.toString().trim();
 
-    if(conPassword.isEmpty || email.isEmpty || password.isEmpty) return;
+    if(fullName.isEmpty || email.isEmpty || password.isEmpty) return;
+    if(conPassword != password){
+      return;
+    }
+    setState(() {
+      isLoading = true;
+    });
+    AuthService.signUpUser(fullName, email, password).then((value) => {
+      responseSignUp(value!),
+    });
+  }
 
-    Navigator.pushReplacementNamed(context, SignInPage.id);
+  void responseSignUp(User firebaseUser){
+    setState(() {
+      isLoading = false;
+    });
+    Navigator.pushReplacementNamed(context, HomePage.id);
   }
 
   @override
@@ -44,109 +62,18 @@ class _SignUpPageState extends State<SignUpPage> {
               ]
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
 
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      height: 55,
-                      decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(7)
-                      ),
-                      child: TextField(
-                        controller: fullNameController,
-                        decoration: InputDecoration(
-                            hintText: "Full Name",
-                            hintStyle: TextStyle(color: Colors.grey[400]),
-                            border: InputBorder.none,
-                            icon: Icon(
-                              Icons.person_2_outlined,
-                              color: Colors.grey[400],
-                            )
-                        ),
-                      ),
-                    ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
 
-                    const SizedBox(height: 7,),
-
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      height: 55,
-                      decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(7)
-                      ),
-                      child: TextField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                            hintText: "Email",
-                            hintStyle: TextStyle(color: Colors.grey[400]),
-                            border: InputBorder.none,
-                            icon: Icon(
-                              Icons.person_2_outlined,
-                              color: Colors.grey[400],
-                            )
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 7,),
-
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      height: 55,
-                      decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(7)
-                      ),
-                      child: TextField(
-                        controller: passController,
-                        decoration: InputDecoration(
-                            hintText: "Password",
-                            hintStyle: TextStyle(color: Colors.grey[400]),
-                            border: InputBorder.none,
-                            icon: Icon(
-                              Icons.lock_person_outlined,
-                              color: Colors.grey[400],
-                            )
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 7,),
-
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      height: 55,
-                      decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(7)
-                      ),
-                      child: TextField(
-                        controller: conPassController,
-                        decoration: InputDecoration(
-                            hintText: "Confirm Password",
-                            hintStyle: TextStyle(color: Colors.grey[400]),
-                            border: InputBorder.none,
-                            icon: Icon(
-                              Icons.lock_person_outlined,
-                              color: Colors.grey[400],
-                            )
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
-                    GestureDetector(
-                      onTap: _doLogin,
-                      child:   Container(
+                        Container(
                           margin: const EdgeInsets.only(left: 20, right: 20),
                           padding: const EdgeInsets.only(left: 15, right: 15),
                           height: 55,
@@ -154,32 +81,132 @@ class _SignUpPageState extends State<SignUpPage> {
                               color: Colors.white54.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(7)
                           ),
-                          child: const Center(
-                            child: Text("Sign Up", style: TextStyle( color: Colors.white, fontSize: 20
-                                ,fontWeight: FontWeight.bold),),
-                          )
-                      ),
-                    ),
-                    const SizedBox(height: 15,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Text("Already have an account?",
-                          style: TextStyle(color: Colors.white, fontSize: 18),),
-                        const SizedBox(width: 5,),
-                        GestureDetector(
-                          onTap: (){
-                            Navigator.pushReplacementNamed(context, SignInPage.id);
-                          },
-                          child: const Text("Sign In", style:
-                          TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20),),
+                          child: TextField(
+                            controller: fullNameController,
+                            decoration: InputDecoration(
+                                hintText: "Full Name",
+                                hintStyle: TextStyle(color: Colors.grey[400]),
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.person_2_outlined,
+                                  color: Colors.grey[400],
+                                )
+                            ),
+                          ),
                         ),
-                        const SizedBox(width: 20,)
-                      ],
-                    ),
-                  ]
-              ),
+
+                        const SizedBox(height: 7,),
+
+                        Container(
+                          margin: const EdgeInsets.only(left: 20, right: 20),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          height: 55,
+                          decoration: BoxDecoration(
+                              color: Colors.white54.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(7)
+                          ),
+                          child: TextField(
+                            controller: emailController,
+                            decoration: InputDecoration(
+                                hintText: "Email",
+                                hintStyle: TextStyle(color: Colors.grey[400]),
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.person_2_outlined,
+                                  color: Colors.grey[400],
+                                )
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 7,),
+
+                        Container(
+                          margin: const EdgeInsets.only(left: 20, right: 20),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          height: 55,
+                          decoration: BoxDecoration(
+                              color: Colors.white54.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(7)
+                          ),
+                          child: TextField(
+                            controller: passController,
+                            decoration: InputDecoration(
+                                hintText: "Password",
+                                hintStyle: TextStyle(color: Colors.grey[400]),
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.lock_person_outlined,
+                                  color: Colors.grey[400],
+                                )
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 7,),
+
+                        Container(
+                          margin: const EdgeInsets.only(left: 20, right: 20),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          height: 55,
+                          decoration: BoxDecoration(
+                              color: Colors.white54.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(7)
+                          ),
+                          child: TextField(
+                            controller: conPassController,
+                            decoration: InputDecoration(
+                                hintText: "Confirm Password",
+                                hintStyle: TextStyle(color: Colors.grey[400]),
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.lock_person_outlined,
+                                  color: Colors.grey[400],
+                                )
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        GestureDetector(
+                          onTap: _doLogin,
+                          child:   Container(
+                              margin: const EdgeInsets.only(left: 20, right: 20),
+                              padding: const EdgeInsets.only(left: 15, right: 15),
+                              height: 55,
+                              decoration: BoxDecoration(
+                                  color: Colors.white54.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(7)
+                              ),
+                              child: const Center(
+                                child: Text("Sign Up", style: TextStyle( color: Colors.white, fontSize: 20
+                                    ,fontWeight: FontWeight.bold),),
+                              )
+                          ),
+                        ),
+                        const SizedBox(height: 15,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Text("Already have an account?",
+                              style: TextStyle(color: Colors.white, fontSize: 18),),
+                            const SizedBox(width: 5,),
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pushReplacementNamed(context, SignInPage.id);
+                              },
+                              child: const Text("Sign In", style:
+                              TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20),),
+                            ),
+                            const SizedBox(width: 20,)
+                          ],
+                        ),
+                      ]
+                  ),
+                ),
+              ],
             ),
+
+            isLoading ? const Center(
+              child: CircularProgressIndicator(),
+            ) : const SizedBox.shrink(),
           ],
         ),
       ),
