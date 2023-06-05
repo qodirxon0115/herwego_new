@@ -96,7 +96,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
 
                         const SizedBox(height: 7,),
-
                         Container(
                           margin: const EdgeInsets.only(left: 20, right: 20),
                           padding: const EdgeInsets.only(left: 15, right: 15),
