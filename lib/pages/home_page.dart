@@ -114,22 +114,50 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Container(
         padding: const EdgeInsets.all(20),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
+            Container(
+              height: 200,
+              width: 400,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: post.imgUrl != null ?
+                  Image.network(post.imgUrl!, fit: BoxFit.cover,)
+                  : Image.asset("assets/images/picture_ic.png"),
+            ),
+
+            const SizedBox(height: 10,),
+
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(post.title!,
+                Text(post.fName??"",
                   style: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),),
-
-                const SizedBox(height: 5,),
-
-                Text(post.body!,
+                const SizedBox(width: 5,),
+                Text(post.lName ??"",
                   style: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),),
               ],
-            )
+            ),
+
+            const SizedBox(height: 5,),
+
+            Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(post.title!,
+                  style: TextStyle(
+                      color: Colors.grey[600], fontWeight: FontWeight.bold),),
+                const SizedBox(height: 5,),
+                Text(post.body!,
+                  style: TextStyle(
+                      color: Colors.grey[600], fontWeight: FontWeight.bold),),
+              ],
+            ),
+
           ],
         ),
       ),
